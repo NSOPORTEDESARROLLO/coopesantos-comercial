@@ -34,7 +34,7 @@ if ( $mode eq 1 ) {
 
 if ( $value eq "error" ){
 
-	$AGI->stream_file("custom/8-num-incorrecto");
+	$AGI->stream_file("custom/usuario-invalido");
 	&Logger("Numero incorrecto");
 	&Logger();
 	exit 0;
@@ -43,14 +43,14 @@ if ( $value eq "error" ){
 
 if ( $value eq 0 ){
 
-        $AGI->stream_file("custom/no-hay-montos-pendientes");
+        $AGI->stream_file("custom/no-tiene-pendientes");
 	&Logger("No hay montos pendientes");
 	&Logger();
 	exit 0;
 }  
 
 
-$AGI->stream_file("custom/montoacancelar-corto");
+$AGI->stream_file("custom/monto-a-cancelar-es-de");
 $AGI->say_number($value);
 $AGI->stream_file("custom/colones");
 
