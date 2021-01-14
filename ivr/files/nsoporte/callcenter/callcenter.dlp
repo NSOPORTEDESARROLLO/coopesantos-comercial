@@ -1,0 +1,26 @@
+[callcenter]
+
+exten => s,1,Wait(1)
+exten => s,n,Set(fecha=${CDR(start)})
+exten => s,n,Set(callerid=${CALLERID(num)})
+exten => s,n,Set(uid=${CDR(uniqueid)})
+exten => s,n,NoOp(Revisando la variable global_update: ${global_update})
+
+exten => s,n,GotoIf($["${global_route}" != "" ]?dial_callcenter_global,s,1:dial_callcenter_default,s,1)
+
+
+[dial_callcenter_default]
+exten => s,1,Dial(SIP/${callcenter_pbxtrunk}/${callcenter_route_dest})
+exten => h,1,GoTo(callcenter-hangup,s,1)
+
+
+[dial_callcenter_global]
+exten => s,1,Dial(SIP/${callcenter_pbxtrunk}/${global_route})
+exten => h,1,GoTo(callcenter-hangup,s,1)
+
+
+[callcenter-hangup]
+exten => s,1,Set(duration=${CDR(billsec)})
+exten => s,n,Set(estado=${CDR(disposition)})
+exten => s,n,AGI(callcenter/callcenter.pl)
+exten => h,n,Hangup()

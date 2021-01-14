@@ -1,0 +1,34 @@
+;;; Variables Generales
+
+#include /opt/asterisk/etc/asterisk/nsoporte/general/variables.dlp
+
+
+[ivr]
+
+exten => 8885,1,Goto(averias,s,1)
+exten => 8886,1,Goto(callcenter,s,1)
+exten => 8887,1,Goto(consultas,s,1)
+exten => 8888,1,Goto(ast2ticket,s,1)
+exten => 8889,1,Goto(nuevos-servicios,s,1)
+
+
+;; Contexto para la creacion de tiquetes
+
+#include  /opt/asterisk/etc/asterisk/nsoporte/ast2ticket/variables.dlp
+#include  /opt/asterisk/etc/asterisk/nsoporte/ast2ticket/ast2ticket.dlp
+
+
+;; Contexto para la apertura de nuevos servicios
+
+#include  /opt/asterisk/etc/asterisk/nsoporte/nuevos-servicios/variables.dlp
+#include  /opt/asterisk/etc/asterisk/nsoporte/nuevos-servicios/nuevos-servicios.dlp
+
+;; Contexto para el Callcenter
+
+#include  /opt/asterisk/etc/asterisk/nsoporte/callcenter/variables.dlp
+#include  /opt/asterisk/etc/asterisk/nsoporte/callcenter/callcenter.dlp
+
+;; Contexto para averias 
+
+#include  /opt/asterisk/etc/asterisk/nsoporte/averias/variables.dlp
+#include  /opt/asterisk/etc/asterisk/nsoporte/averias/averias.dlp

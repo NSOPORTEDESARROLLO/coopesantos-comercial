@@ -1,0 +1,4 @@
+[globals]
+
+callcenter_route_dest = 9999
+callcenter_pbxtrunk = ast2ticket

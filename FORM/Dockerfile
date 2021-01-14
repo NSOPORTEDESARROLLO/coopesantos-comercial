@@ -4,7 +4,9 @@ FROM	nsoporte/asterisk:latest
 
 
 RUN		apt-get update; apt-get -y upgrade; \
-		apt-get -y install libasterisk-agi-perl libdbd-odbc-perl curl
+		apt-get -y install libasterisk-agi-perl libdbd-odbc-perl curl libnet-smtps-perl \
+		libnet-snmp-perl libmime-lite-perl libnet-smtp-tls-perl
+
 		
 
 

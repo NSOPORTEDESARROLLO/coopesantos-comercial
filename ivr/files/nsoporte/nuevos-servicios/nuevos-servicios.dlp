@@ -1,0 +1,67 @@
+[nuevos-servicios]
+
+exten => s,1,Answer()
+exten => s,2,Ringing()
+exten => s,3,Wait(3)
+exten => s,4,Set(CHANNEL(language)=es)
+exten => s,n,Set(fecha=${CDR(start)})
+exten => s,n,Set(callerid=${CALLERID(num)})
+exten => s,n,Set(uid=${CDR(uniqueid)})
+exten => s,n,Set(global_update=0)
+exten => s,n,Background(custom/${nservicios_eoc})
+exten => s,n,WaitExten(${nsoporte_read_time})
+
+exten => 1,1,GoTo(Nservicios-medidor,s,1)
+exten => 2,1,GoTo(Nservicios-cable,s,1)
+
+exten => i,1,PlayBack(custom/${nservicios_lodei})
+exten => i,n,GoTo(nuevos-servicios,s,4)
+
+exten => t,1,GoTo(nuevos-servicios,s,4)
+
+
+
+
+[Nservicios-medidor]
+
+exten => s,1,Set(nservicio=0)
+exten => s,n,Goto(Nservicios-devolver-llamada,s,1)
+
+
+
+
+[Nservicios-cable]
+
+exten => s,1,Set(nservicio=1)
+exten => s,n,Goto(Nservicios-devolver-llamada,s,1)
+
+
+
+[Nservicios-devolver-llamada]
+
+exten => s,1,Wait(3)
+exten => s,n,Set(ivr_service=2)
+exten => s,n,Background(custom/${nservicios_doa})
+exten => s,n,WaitExten(${nsoporte_read_time})
+
+exten => 1,1,Set(dest=0)
+exten => 1,n,Set(duration=${CDR(billsec)})
+exten => 1,n,Set(estado=${CDR(disposition)})
+exten => 1,n,Set(global_route=9997)
+exten => 1,n,AGI(nuevos-servicios/nuevos-servicios.pl)
+exten => 1,n,GoTo(callcenter,s,1)
+
+exten => 2,1,Set(dest=1)
+exten => 2,n,Set(duration=${CDR(billsec)})
+exten => 2,n,Set(estado=${CDR(disposition)})
+exten => 2,n,AGI(nuevos-servicios/nuevos-servicios.pl)
+exten => 2,n,GoTo(ast2ticket,s,1)
+
+exten => t,1,Hangup()
+
+exten => h,1,GoTo(Nservicios-Hangup,s,1)
+
+
+[Nservicios-Hangup]
+
+exten => h,1,Hangup()
