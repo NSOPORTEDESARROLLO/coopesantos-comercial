@@ -8,6 +8,46 @@ my $LogPath = '/var/log/asterisk';
 
 
 
+sub LogPrintArray {
+
+
+	
+	my $arraydata = $_[0];
+	my $LogFile = $_[1];
+
+
+	my $logfile =  $LogPath .  '/' . $LogFile;
+	my $timestamp = localtime(time);
+	my $counter = 0;
+	
+
+
+	open(my $fh, '>>', $logfile);
+
+	print $fh "$timestamp .............................. Imprimiendo Array\n";
+
+		foreach my $k (@{$arraydata}) {
+  
+		my $msg = '  		[' . $counter . ']  ------> ' . $k;
+  		print $fh "$msg\n";
+  		$counter ++;
+
+		}
+
+
+
+	close $fh;
+
+
+
+
+
+}
+
+
+
+
+
 sub LogPrintHash {
 
 

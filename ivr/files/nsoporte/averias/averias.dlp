@@ -1,1 +1,146 @@
 [averias]
+
+exten => s,1,Answer()
+exten => s,2,Ringing()
+exten => s,3,Wait(3)
+exten => s,4,Set(CHANNEL(language)=es)
+exten => s,n,Set(fecha=${CDR(start)})
+exten => s,n,Set(callerid=${CALLERID(num)})
+exten => s,n,Set(uid=${CDR(uniqueid)})
+exten => s,n,Set(global_update=0)
+exten => s,n,Background(custom/${averias_eoc})
+exten => s,n,WaitExten(${averias_read_time})
+
+exten => 1,1,GoTo(averias-medidor,s,1)
+exten => 2,1,GoTo(averias-cable-e-internet,s,1)
+
+exten => i,1,PlayBack(custom/${averias_lodei})
+exten => i,n,GoTo(averias,s,4)
+
+exten => t,1,GoTo(averias,s,4)
+
+
+;;Reproduce audio de incidencia 
+[averias-audio-issue-medidor]
+
+exten => s,1,PlayBack(custom/${averias_medidor_audio_issue})
+exten => s,n,GoTo(averias-medidor,s,4)
+
+[averias-audio-issue-cable-e-internet]
+
+exten => s,1,PlayBack(custom/${averias_cable_e_internet_audio_issue})
+exten => s,n,GoTo(averias-cable-e-internet,s,4)
+
+
+[averias-medidor]
+
+exten => s,1,Set(nservicio=0)
+exten => s,2,NoOP(El valor de la variable averias_medidor_audio_issue : ${averias_medidor_audio_issue})
+exten => s,3,GotoIf($["${averias_medidor_audio_issue}" = ""]?averias-medidor,s,4:averias-audio-issue-medidor,s,1)
+
+exten => s,4,Read(SERVICIO,"custom/${averias_dndmc}",,,,${averias_read_time})
+exten => s,5,GotoIf($["${SERVICIO}" = ""]?averias-medidor,s,1)
+exten => s,6,NoOp(##### Numero de Medidor digitado es ${SERVICIO})
+exten => s,7,Playback(custom/${averias_ene})
+exten => s,8,SayDigits(${SERVICIO})
+exten => s,9,Background(custom/${averias_ct})
+exten => s,n,WaitExten(7)
+
+exten => 1,1,Goto(averia-medidor-consulta,s,1)
+
+exten => 2,1,Goto(averias-medidor,s,1)
+
+exten => t,1,GoTo(averias-medidor,s,9)
+exten => i,1,GoTo(averias-medidor,s,9)
+
+
+[averia-medidor-consulta]
+
+exten => s,1,AGI(averias/consulta_pendiente.pl)
+exten => s,n,GoTo(averias-devolver-llamada,s,1)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[averias-cable-e-internet]
+
+exten => s,1,Set(nservicio=1)
+exten => s,2,NoOP(El valor de la variable averias_cable_e_internet_audio_issue : ${averias_cable_e_internet_audio_issue})
+exten => s,3,GotoIf($["${averias_cable_e_internet_audio_issue}" = ""]?averias-cable-e-internet,s,4:averias-audio-issue-cable-e-internet,s,1)
+
+exten => s,4,Read(SERVICIO,"custom/${averias_dndsc}",,,,${averias_read_time})
+exten => s,5,GotoIf($["${SERVICIO}" = ""]?averias-cable-e-internet,s,1)
+exten => s,6,NoOp(##### Numero de Medidor digitado es ${SERVICIO})
+exten => s,7,Playback(custom/${averias_ene})
+exten => s,8,SayDigits(${SERVICIO})
+exten => s,9,Background(custom/${averias_ct})
+exten => s,n,WaitExten(7)
+
+exten => 1,1,Goto(averias-cable-e-internet-consulta,s,1)
+
+exten => 2,1,Goto(averias-cable-e-internet,s,1)
+
+exten => t,1,GoTo(averias-cable-e-internet,s,9)
+exten => i,1,GoTo(averias-cable-e-internet,s,9)
+
+
+[averias-cable-e-internet-consulta]
+
+exten => s,1,AGI(averias/consulta_pendiente.pl)
+exten => s,n,GoTo(averias-cable-internet-ivr,s,1)
+
+
+;;;Menu para consulta de los servicios de cable, internet o Internet o cable
+[averias-cable-internet-ivr]
+exten => s,1,Wait(1)
+exten => s,n,Background(custom/${averias_cici})
+exten => s,n,WaitExten(${averias_read_time})
+
+;;cable
+exten => 1,1,Set(nservicio=2)
+exten => 1,n,GoTo(averias-devolver-llamada,s,1)
+
+;;internet
+exten => 2,1,Set(nservicio=3)
+exten => 2,n,GoTo(averias-devolver-llamada,s,1)
+
+;;cable e internet
+exten => 3,1,Set(nservicio=1)
+exten => 3,n,GoTo(averias-devolver-llamada,s,1)
+
+exten => i,1,PlayBack(custom/${averias_lodei})
+exten => i,n,GoTo(averias-cable-internet-ivr,s,1)
+
+exten => t,1,GoTo(averias-cable-internet-ivr,s,1)
+
+
+
+[averias-devolver-llamada]
+
+exten => s,1,Wait(3)
+exten => s,n,Set(ivr_service=3)
+exten => s,n,Background(custom/${averias_doa})
+exten => s,n,WaitExten(${averias_read_time})
+
+exten => 1,1,Set(dest=0)
+exten => 1,n,Set(duration=${CDR(billsec)})
+exten => 1,n,Set(estado=${CDR(disposition)})
+exten => 1,n,Set(global_route=9997)
+exten => 1,n,AGI(averias/averias.pl)
+exten => 1,n,GoTo(callcenter,s,1)
+
+exten => 2,1,Set(dest=1)
+exten => 2,n,Set(duration=${CDR(billsec)})
+exten => 2,n,Set(estado=${CDR(disposition)})
+exten => 2,n,AGI(averias/averias.pl)
+exten => 2,n,GoTo(ast2ticket,s,1)
+
+exten => t,1,Hangup()
+
+exten => h,1,GoTo(averias-Hangup,s,1)
+
+
+[averias-Hangup]
+
+exten => h,1,Hangup()
+

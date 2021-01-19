@@ -4,32 +4,18 @@
 use strict;
 use DBI;
 
-require '/opt/asterisk/var/lib/asterisk/agi-bin/shared/insert_mysql.pl';
+require '/opt/asterisk/var/lib/asterisk/agi-bin/shared/get_value_from_msserver.pl';
 
 
-my $numero = "88976529";
-my $class = "AVERIAS";
-my $classservice = "ELECTRICIDAD";
-my $nservicio = "6";
-my $cliente = "345";
-my $servicio = "3";
-my $filename = "kdfjhkjdfgh/fjhdfkjgh"; 
-my $ivrservice = "4";
-
-my %data = (
-
-	 'fecha' => 'hoy',
-	'numero' => $numero,
-	'ivrservice' => $class,
-	'nservicio' => $classservice,
-	'cliente' => $servicio,
-	'grabacion' => $filename
+my $mode = 0;
+my $id = 100810000000000;
+my $user = 'userIVR';
+my $pwd = 'ivrU$3r';
+my $host = '172.28.130.49';
 
 
 
-	);
+my $value = &GetValueFromMsserver($mode,$id,$user,$pwd,$host);
 
 
-
-
-&InsertMysql("172.17.0.1","osssystems","ast2ticket","asteriskuser","055Admintmp123.",\%data);
+print "$value";

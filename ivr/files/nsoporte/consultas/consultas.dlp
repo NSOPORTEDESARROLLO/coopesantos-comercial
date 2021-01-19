@@ -1,0 +1,93 @@
+[consultas]
+
+exten => s,1,Wait(1)
+exten => s,n,Answer()
+exten => s,n,Set(CHANNEL(language)=es)
+exten => s,n,Set(TIMEOUT(digit)=7)
+exten => s,n,Set(TIMEOUT(response)=10)
+exten => s,n,Set(uid=${CDR(uniqueid)})
+exten => s,n,Set(date=${CDR(start)})
+exten => s,n,Set(status=${CDR(disposition)})
+exten => s,n,Set(callerid=${CALLERID(num)})
+exten => s,n,BackGround(custom/${consultas_eoc})
+exten => s,n,WaitExten()
+
+exten => 1,1,goto(consultas-medidor-menu,s,1)
+exten => 2,1,goto(consultas-cable-e-internet-menu,s,1)
+
+exten => i,1,Playback(custom/${consultas_lodei})
+exten => i,2,GoTo(consultas,s,1)
+
+
+exten => t,1,GoTo(consultas,s,1)
+
+exten => h,1,Hangup()
+
+
+;;;; Medidor
+[consultas-medidor-menu]
+
+exten => s,1,Set(CHANNEL(language)=es)
+exten => s,n,Set(nservice=0)
+exten => s,n,NoOp("La consulta es para Electricidad")
+exten => s,n,Read(id,"custom/${consultas_dndm}")
+exten => s,n,NoOp(${id})
+exten => s,n,GotoIf($["${id}" = "" ]?consultas-to-callcenter,s,1:consultas-agi,s,1)
+
+
+;; Cable e Internet
+
+[consultas-cable-e-internet-menu]
+
+exten => s,1,Set(CHANNEL(language)=es)
+exten => s,n,Set(nservice=1)
+exten => s,n,NoOp("La consulta es para Internet y Cable")
+exten => s,n,Read(id,"custom/${consultas_dnds}")
+exten => s,n,NoOp(${id})
+exten => s,n,GotoIf($["${id}" = "" ]?consultas-to-callcenter,s,1:consultas-agi,s,1)
+
+
+
+[consultas-agi]
+exten => s,1,Set(CHANNEL(language)=es)
+exten => s,n,AGI(consultas/consultas.pl)
+exten => s,n,GoTo(consultas-updatedb,s,1)
+
+
+[consultas-to-callcenter]
+
+exten => s,1,Set(global_update=1)
+exten => s,n,Set(global_route=9997)
+exten => s,n,NoOp(Redireccionando al callcenter .......)
+exten => s,n,GoTo(callcenter,s,1)
+
+;exten => h,1,Goto(hangup-update,s,1)
+
+
+[consultas-updatedb]
+
+exten => s,1,Set(time=${CDR(billsec)})
+exten => s,n,AGI(consultas/updatedb.pl)
+exten => s,n,GoTo(final-ivr,s,1)
+exten => h,1,hangup
+
+
+
+[final-ivr]
+
+exten => s,1,Wait(1)
+exten => s,n,Set(CHANNEL(language)=es)
+exten => s,n,Set(TIMEOUT(digit)=7)
+exten => s,n,Set(TIMEOUT(response)=10)
+exten => s,n,BackGround(custom/${consultas_hoc})
+exten => s,n,WaitExten()
+
+exten => 1,1,goto(consultas,s,1)
+
+exten => 2,1,goto(consultas-to-callcenter,s,1)
+
+exten => i,1,Playback(custom/${consultas_lodei})
+exten => i,2,GoTo(consultas,s,1)
+
+exten => t,1,goto(main-ivr,s,1)
+;exten => h,1,GoTo(consultas-hangup,s,1)

@@ -1,2 +1,18 @@
 [globals]
 
+averias_eoc = electrica-o-cable
+averias_read_time = 7
+
+
+averias_doa = devolver-o-agente
+averias_lodei = la-opcion-digitada-es-invalida
+averias_medidor_audio_issue = afectacion-electrica
+averias_cable_e_internet_audio_issue =
+averias_dndmc = digitar-numero-de-medidor-corto
+averias_dndsc = digitar-numero-de-suscriptor-corto
+averias_ene = el_numero_es
+averias_ct = correcto
+averias_rnv = registro-no-valido
+averias_mp = resgistro-montos-pendientes
+averias_doa = devolver-o-agente
+averias_cici = internet-cable-internetcable

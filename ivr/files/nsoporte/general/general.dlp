@@ -32,3 +32,8 @@ exten => 8889,1,Goto(nuevos-servicios,s,1)
 
 #include  /opt/asterisk/etc/asterisk/nsoporte/averias/variables.dlp
 #include  /opt/asterisk/etc/asterisk/nsoporte/averias/averias.dlp
+
+;; Contexto para consultas 
+
+#include  /opt/asterisk/etc/asterisk/nsoporte/consultas/variables.dlp
+#include  /opt/asterisk/etc/asterisk/nsoporte/consultas/consultas.dlp

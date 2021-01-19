@@ -75,27 +75,31 @@ if ( "$sdata{'ivrservice'}" eq "2" ) {
 } elsif ( "$sdata{'ivrservice'}" eq "3" ) {
 
 	$sdata{'title'} = "Reporte Averia - ";
-	$sdata{'servicetext'} =  'para el servicio de: ' . $sdata{'servicio'};
+	
 	$sdata{'class'} = "AVERIAS";
 
 	if ( "$sdata{'nservicio'}" eq "0" ) {
 
 		$sdata{'title'} = sdata{'$title'} . "Electricidad";
+		$sdata{'servicetext'} =  'para el servicio de Electricidad: ' . $sdata{'servicio'};
 		$sdata{'classservice'} = "ELECTRICIDAD";
-
-	} elsif ("$sdata{'nservicio'}" eq "1"){
-
-		$sdata{'title'} = $sdata{'title'} . "Cable";
-		$sdata{'classservice'} = "CABLE";
 
 	} elsif ("$sdata{'nservicio'}" eq "2"){
 
+		$sdata{'title'} = $sdata{'title'} . "Cable";
+		$sdata{'servicetext'} =  'para el servicio de Cable: ' . $sdata{'servicio'};
+		$sdata{'classservice'} = "CABLE";
+
+	} elsif ("$sdata{'nservicio'}" eq "3"){
+
 		$sdata{'title'} = $sdata{'title'} . "Internet";
+		$sdata{'servicetext'} =  'para el servicio de Internet: ' . $sdata{'servicio'};
 		$sdata{'classservice'} = "INTERNET";
 
-	}	elsif ("$sdata{'nservicio'}" eq "3"){
+	}	elsif ("$sdata{'nservicio'}" eq "1"){
 
 		$sdata{'title'} = $sdata{'title'} . "Cable e Internet";
+		$sdata{'servicetext'} =  'para el servicio de Cable e Internet: ' . $sdata{'servicio'};
 		$sdata{'classservice'} = "CABLE E INTERNET";
 
 	}	
