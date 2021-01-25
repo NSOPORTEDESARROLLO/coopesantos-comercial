@@ -1,0 +1,11 @@
+index_title=Grabaciones del Sistema
+index_delete=Eliminar
+index_create=Nueva Grabacion
+index_recording_name=Nombre
+index_recording_date=Fecha
+index_recording_hour=Hora
+upload_recording=Subir Grabacion 
+recording_name=Nombre de la grabacion
+check_error=Debe de seleccionar algun archivo para borrar
+name_error=Necesita poner un nombre a la grabacion
+upload_error=Necesita seleccionar un archivo

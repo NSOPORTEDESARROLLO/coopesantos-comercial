@@ -1,0 +1,13 @@
+index_title=General Settings
+index_save=Save
+index_settings=Data Base Settings
+index_mysql_db_host=Mysql Host
+index_mysql_db_name=Mysql Data Base Name
+index_mysql_db_user=Mysql User Name
+index_mysql_db_pwd=Mysql User Password
+index_msserver_db_host=Microsoft SQL Server Host
+index_msserver_db_name=Microsoft SQL Server Data Base Name
+index_msserver_db_user=Microsoft SQL Server User Name
+index_msserver_db_pwd=Microsoft SQL Server User Password
+
+

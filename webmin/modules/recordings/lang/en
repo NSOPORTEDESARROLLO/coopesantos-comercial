@@ -1,0 +1,11 @@
+index_title=System Recordings
+index_delete=Delete
+index_create=Create
+index_recording_name=Name
+index_recording_date=Date
+index_recording_hour=Hour
+upload_recording=Upload Recording
+recording_name=Recording Name
+check_error=Select Some file to Delete
+name_error=Please set a recording Name
+upload_error=Please select a fale to upload

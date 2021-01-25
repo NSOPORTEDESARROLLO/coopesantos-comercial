@@ -1,0 +1,3 @@
+ffmpeg_path=FFMPEG Path,0
+ffmpeg_options=FFMPEG Options,0
+recordings_dir=Recordings Directory,0
