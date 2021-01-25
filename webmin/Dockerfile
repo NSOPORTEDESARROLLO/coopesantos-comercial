@@ -4,6 +4,7 @@ FROM 	debian:buster-slim
 ADD		files/webmin.tgz /usr/share
 ADD		files/webmin-etc.tgz /data/apps/webmin
 ADD		files/ns-start /usr/bin
+ADD 	files/docker /usr/local/bin
 
 RUN 	apt-get update; apt-get -y upgrade; \
 		apt-get -y install perl libnet-ssleay-perl openssl \
@@ -17,8 +18,8 @@ RUN 	apt-get update; apt-get -y upgrade; \
 
 RUN 	tar -czvf /opt/webmin-etc.tgz /data/apps/webmin/etc; \
 		rm -rf  /data/apps/webmin/etc; \
-		chmod +x /usr/bin/ns-start
-
+		chmod +x /usr/bin/ns-start; \
+		chmod +x /usr/local/bin/docker
 
 
 CMD 	[ "/usr/bin/ns-start" ]
