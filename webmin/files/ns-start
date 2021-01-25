@@ -1,0 +1,31 @@
+#!/bin/bash 
+
+
+#Ver el Directorio de config
+if [ ! -d "/data/apps/webmin/etc" ];then 
+
+        tar -xzvf /opt/webmin-etc.tgz -C /
+
+fi 
+
+if [ ! -d "/data/apps/webmin/log" ];then 
+
+        mkdir -p /data/apps/webmin/log
+
+fi 
+
+
+#Levanto el servicio de Webmin
+/usr/bin/perl /usr/share/webmin/miniserv.pl /data/apps/webmin/etc/miniserv.conf
+resp=$?
+
+
+if [ $resp != 0 ];then
+
+        exit 1
+
+else 
+
+        tail -f /data/apps/webmin/log/miniserv.error
+
+fi      
