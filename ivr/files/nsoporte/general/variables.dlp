@@ -1,11 +1,9 @@
 [globals]
-
-mysql_db_host = 172.17.0.1
-mysql_db_name = osssystems
-mysql_db_user = asteriskuser
-mysql_db_pwd = 055Admintmp123.
-
-msserver_db_host = 172.28.130.49
-msserver_db_name = 
-msserver_db_user = userIVR
-msserver_db_pwd = ivrU$3r
+mysql_db_host=172.17.0.1
+mysql_db_name=osssystems
+mysql_db_user=asteriskuser
+mysql_db_pwd=055Admintmp123.
+msserver_db_host=172.28.130.49
+msserver_db_name= 
+msserver_db_user=userIVR
+msserver_db_pwd=ivrU$3r

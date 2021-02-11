@@ -2,12 +2,33 @@
 Repositorio Comercial para los sistemas de consultas del departamento Comercial 
 
 
-# IVR
-## Cosntruir el Contenedor:
-- docker build -t "coopesantos/ivr:tag" ./
+# Crear las imagenes necesarias:
 
-## Volumenes:
-- /opt/asterisk/etc/asterisk: Archivos de configuracion para los contextos de asterisk 
-- /opt/asterisk/var/lib/asterisk/sounds: Carpeta para almacenar los audios
-- /opt/asterisk/var/spool/asterisk: Archivos de grabaciones de Asterisk (por si se llega a ocupar)
-- /var/log/asterisk: Almacena todos los logs de asterisk incluyendo los de consulta con MSSQL
+- Clonar repositorio
+- Ejecutar Script build.sh
+
+## Dependencias:
+
+- MariaDB
+
+# Imagenes:
+
+## IVR: (coopesantos/ivr)
+
+Esta imagen contiene el servicio de asterisk junto con los scripts AGI para el funcionamiento necesario
+
+### Volumenes:
+
+- /opt/asterisk/etc/asterisk
+- /opt/asterisk/var/lib/asterisk/sounds
+- /opt/asterisk/var/spool/asterisk
+- /var/log/asterisk
+
+## IVRGUI: (coopesantos/ivrgui)
+
+Contiene el servicio de Webmin junto a los modulos de configuracion hechos a la medida 
+
+### Volumenes
+
+- /data
+

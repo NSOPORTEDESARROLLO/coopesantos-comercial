@@ -1,7 +1,5 @@
 [globals]
-nservicios_eoc = electrica-o-cable
-nservicios_read_time = 7
-
-
-nservicios_doa = devolver-o-agente
-nservicios_lodei = la-opcion-digitada-es-invalida
+nservicios_eoc=electrica-o-cable
+nservicios_doa=devolver-o-agente
+nservicios_read_time=7
+nservicios_lodei=el-registro-digitado-incorrecto

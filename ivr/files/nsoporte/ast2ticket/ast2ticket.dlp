@@ -9,7 +9,7 @@ exten => s,4,Set(CHANNEL(language)=es)
 exten => s,n,Set(ast2ticket_fecha=${CDR(start)})
 exten => s,n,NoOP(La variable ivr_service es: ${ivr_service})
 exten => s,n,NoOp(La variable nservicio es: ${nservicio})
-exten => s,n,Read(numero,"custom/${ast2ticket_ient}",8,,,${ast2ticket_read_time})
+exten => s,n,Read(numero,"custom/${ast2ticket_ient}",10,,,${ast2ticket_read_time})
 exten => s,n,Playback(custom/${ast2ticket_ene})
 exten => s,n,SayDigits(${numero})
 exten => s,n,Background(custom/${ast2ticket_ct})
@@ -18,7 +18,7 @@ exten => s,n,WaitExten(${ast2ticket_read_time})
 
 exten => 1,1,GotoIf($["${ivr_service}" = "2"]?GetMessage,s,1)
 exten => 1,n,GotoIf($["${ivr_service}" = "3"]?GetMessage,s,1)
-exten => 1,n,GoTo(GetService,s,1)
+exten => 1,n,GoTo(GetMessage,s,1)
 
 exten => 2,1,GoTo(GetNumber,s,4)
 
@@ -35,30 +35,35 @@ exten => 2,1,Goto(ServInfo,s,1)
 [ServElec]
 
 exten => s,1,Set(nservicio=0)
-exten => s,n,Read(SERVICIO,"custom/digitar-numero-de-medidor-corto",,,,${ast2ticket_read_time})
-exten => s,n,NoOp(##### Numero de Medidor digitado es ${SERVICIO})
-exten => s,n,Playback(custom/${ast2ticket_ene})
-exten => s,n,SayDigits(${SERVICIO})
-exten => s,n,Background(custom/${ast2ticket_ct})
-exten => s,n,WaitExten(7)
+;;;exten => s,n,Read(SERVICIO,"custom/digitar-numero-de-medidor-corto",,,,${ast2ticket_read_time})
+;;;exten => s,n,NoOp(##### Numero de Medidor digitado es ${SERVICIO})
+;;;exten => s,n,Playback(custom/${ast2ticket_ene})
+;;;exten => s,n,SayDigits(${SERVICIO})
+;;;exten => s,n,Background(custom/${ast2ticket_ct})
+;;;exten => s,n,WaitExten(7)
 
-exten => 1,1,GoTo(GetMessage,s,1)
-exten => 2,1,Goto(ServElec,s,1)
+;;exten => 1,1,GoTo(GetMessage,s,1)
+;;exten => 2,1,Goto(ServElec,s,1)
+
+exten => s,n,GoTo(GetMessage,s,1)
+
 
 
 [ServInfo]
 
 exten => s,1,Set(nservicio=1)
-exten => s,n,Read(SERVICIO,"custom/digitar-numero-de-suscriptor-corto",,,,${ast2ticket_read_time})
-exten => s,n,NoOp(##### Numero de servicio digitado es ${SERVICIO})
-exten => s,n,Playback(custom/${ast2ticket_ene})
-exten => s,n,SayDigits(${SERVICIO})
-exten => s,n,Background(custom/${ast2ticket_ct})
-exten => s,n,WaitExten(7)
+;;;exten => s,n,Read(SERVICIO,"custom/digitar-numero-de-suscriptor-corto",,,,${ast2ticket_read_time})
+;;;exten => s,n,NoOp(##### Numero de servicio digitado es ${SERVICIO})
+;;;exten => s,n,Playback(custom/${ast2ticket_ene})
+;;;exten => s,n,SayDigits(${SERVICIO})
+;;;exten => s,n,Background(custom/${ast2ticket_ct})
+;;;exten => s,n,WaitExten(7)
 
-exten => 1,1,GoTo(GetMessage,s,1)
-exten => 2,1,Goto(ServInfo,s,1)
+;;;exten => 1,1,GoTo(GetMessage,s,1)
+;;;exten => 2,1,Goto(ServInfo,s,1)
 
+
+exten => s,n,GoTo(GetMessage,s,1)
 
 [GetMessage]
 exten => s,1,Playback(custom/${ast2ticket_gm})

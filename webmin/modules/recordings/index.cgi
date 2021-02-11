@@ -28,7 +28,7 @@ require './recordings-lib.pl';
 			my $count = 0;
 			foreach my $w (&GetRecordings()) {;
 			
-				print &ui_checked_columns_row([&ui_link("show_certs.cgi?ca=$w->{'file'}",$w->{'name'}),
+				print &ui_checked_columns_row([$w->{'name'},
 					$w->{'date'},$w->{'hour'}],undef, "d",$w->{'file'});
 
 			$count++;	

@@ -1,11 +1,10 @@
 [globals]
-
-consultas_unv = usuario-invalido
-consultas_ntp = no-tiene-pendientes
-consultas_maced = monto-a-cancelar-es-de
-consultas_colones = colones
-consultas_eoc = electrica-o-cable
-consultas_lodei = la-opcion-digitada-es-invalida
-consultas_dndm = digitar-numero-de-medidor
-consultas_dnds = digitar-numero-de-supscriptor
-consultas_hoc = hacer-otra-consulta
+consultas_eoc=electrica-o-cable
+consultas_dnds=digitar-numero-de-supscriptor
+consultas_maced=monto-a-cancelar-es-de
+consultas_lodei=el-registro-digitado-incorrecto
+consultas_unv=servicio-digitado-incorrecto
+consultas_colones=colones
+consultas_dndm=digitar-numero-de-medidor
+consultas_hoc=realizar-otra-consulta
+consultas_ntp=no-tiene-pendientes
