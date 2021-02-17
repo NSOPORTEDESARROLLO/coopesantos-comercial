@@ -21,7 +21,7 @@ sub GetValueFromMsserver {
 	my $user = $_[2];
 	my $password = $_[3];
 	my $server = $_[4];
-	my $driverpath = '/opt/microsoft/msodbcsql17/lib64/libmsodbcsql-17.6.so.1.1';
+	my $driverpath = '/opt/microsoft/msodbcsql17/lib64/libmsodbcsql.so';
 
 	my $return;
 	my $dbh;

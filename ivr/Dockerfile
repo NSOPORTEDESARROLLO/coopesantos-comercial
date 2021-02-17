@@ -10,7 +10,8 @@ RUN		apt-get update; apt-get -y upgrade; \
 		curl https://packages.microsoft.com/config/debian/10/prod.list > /etc/apt/sources.list.d/mssql-release.list; \
 		apt-get update; \
 		ACCEPT_EULA=Y apt-get -y install msodbcsql17; \
-		ACCEPT_EULA=Y apt-get -y install mssql-tools
+		ACCEPT_EULA=Y apt-get -y install mssql-tools; \
+		ln -s /opt/microsoft/msodbcsql17/lib64/libmsodbcsql-* /opt/microsoft/msodbcsql17/lib64/libmsodbcsql.so
 
 		
 

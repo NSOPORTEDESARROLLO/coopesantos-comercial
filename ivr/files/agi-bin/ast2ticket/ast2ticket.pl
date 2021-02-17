@@ -80,7 +80,7 @@ if ( "$sdata{'ivrservice'}" eq "2" ) {
 
 	if ( "$sdata{'nservicio'}" eq "0" ) {
 
-		$sdata{'title'} = sdata{'$title'} . "Electricidad";
+		$sdata{'title'} = $sdata{'$title'} . "Electricidad";
 		$sdata{'servicetext'} =  'para el servicio de Electricidad: ' . $sdata{'servicio'};
 		$sdata{'classservice'} = "ELECTRICIDAD";
 
